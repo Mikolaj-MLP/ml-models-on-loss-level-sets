@@ -16,9 +16,11 @@ move while preserving approximately that loss, and what mathematical properties
 change along the way?
 
 This can be written as:
-$$
+
+```math
 \theta\;\longmapsto\;f_\theta\;\longmapsto\;L_{\mathrm{train}}(f_\theta).
-$$
+```
+
 The first map turns the weights into a function (by putting them into a model
 architecture, so to speak).
 The second evaluates that function on the training data. A hidden-neuron permutation gives different weights for
@@ -27,13 +29,15 @@ loss. Exploring around a trained network makes both relationships concrete.
 
 ## From a trained point to a loss neighborhood
 
-Take the weights $\theta_0$ at an observed SGD plateau. Writing
-$L(\theta)=L_{\mathrm{train}}(f_\theta)$, allow an absolute loss difference
-$\varepsilon$ and consider
-$$
+Take the weights $`\theta_0`$ at an observed SGD plateau. Writing
+$`L(\theta)=L_{\mathrm{train}}(f_\theta)`$, allow an absolute loss difference
+$`\varepsilon`$ and consider
+
+```math
 \mathcal N_\varepsilon=
 \{\theta:|L(\theta)-L(\theta_0)|\le\varepsilon\}.
-$$
+```
+
 The reference loss can be positive. Its value fixes the level around which the
 weights are explored.
 
@@ -56,7 +60,7 @@ small near-reference-loss regions separated by higher loss. In the displayed
 routes, straight interpolation crosses a ridge while the recorded exploration
 states stay inside the admissible band.
 
-[Loss section and sampled routes](01_loss_neighbourhood.ipynb)
+![Loss section and sampled routes](figures/loss_section.png)
 
 The colored surface evaluates loss on the affine plane through the reference
 and two endpoints. The recorded walks travel through the larger weight space,
@@ -75,7 +79,7 @@ The random-walk endpoints disagree with the reference on roughly three to four
 percent of evaluation-grid labels. The changes cluster near ambiguous class
 boundaries, where small probability changes can exchange the winning class.
 
-[Class predictions of the SGD network and the explored models](01_loss_neighbourhood.ipynb)
+![Class predictions of the SGD network and the explored models](figures/classification.png)
 
 The alternatives also allocate mistakes differently among classes. Their overall
 accuracy moves less than some class-wise recalls, and their calibration differs.
@@ -97,19 +101,21 @@ A second approximation is available through the nearby SGD function. At each
 rank, truncate the SGD network's middle matrix and compare that shared candidate
 with every alternative.
 
-Let $q_i$ be an alternative's probability function, $q_0$ the reference, and
-$\widetilde q_{0,r}$ the reference after rank-$r$ truncation. For RMS distance
-$d$ on fixed evaluation inputs, the triangle inequality gives
-$$
+Let $`q_i`$ be an alternative's probability function, $`q_0`$ the reference, and
+$`\widetilde q_{0,r}`$ the reference after rank-$`r`$ truncation. For RMS distance
+$`d`$ on fixed evaluation inputs, the triangle inequality gives
+
+```math
 d(q_i,\widetilde q_{0,r})
 \le d(q_i,q_0)+d(q_0,\widetilde q_{0,r}).
-$$
-Thus closeness to the reference supplies a bound on the shared approximation
-error. A rank-$r$ factorization of an $m\times n$ matrix uses $r(m+n)$
-coefficients, reducing storage when
-$r(m+n)<mn$.
+```
 
-[Own-weight truncation and the shared rank-constrained approximation](01_loss_neighbourhood.ipynb)
+Thus closeness to the reference supplies a bound on the shared approximation
+error. A rank-$`r`$ factorization of an $`m\times n`$ matrix uses $`r(m+n)`$
+coefficients, reducing storage when
+$`r(m+n)<mn`$.
+
+![Own-weight truncation and the shared rank-constrained approximation](figures/compression.png)
 
 Here the truncated reference approximates every alternative much more closely
 than truncating the alternative's own matrix at the same low rank. The functions
@@ -131,7 +137,7 @@ Weight exploration produces subtle changes in reconstructed strokes. The
 reconstruction differences subtract the SGD network's reconstruction from each
 alternative's reconstruction of the same image.
 
-[Reconstruction changes produced by the alternative weights](02_mnist_functions.ipynb)
+![Reconstruction changes produced by the alternative weights](figures/reconstruction_difference.png)
 
 Each alternative reconstructs more than a quarter of the test images more
 accurately while average test error rises. Mean error also rises within every
@@ -140,11 +146,13 @@ are distributed within those classes.
 
 The layer singular spectra remain nearly unchanged and average input sensitivity
 changes only slightly across these distinct reconstruction functions. The
-architecture imposes a common constraint. Writing the encoder as $E$, the
-decoder as $D$, and the latent dimension as $r$, the chain rule gives
-$$
+architecture imposes a common constraint. Writing the encoder as $`E`$, the
+decoder as $`D`$, and the latent dimension as $`r`$, the chain rule gives
+
+```math
 J_f(x)=J_D(E(x))J_E(x),\qquad \operatorname{rank}J_f(x)\le r.
-$$
+```
+
 Weights can change the response while retaining this ceiling on its local rank.
 
 These walks approach the upper loss boundary and then gain little additional

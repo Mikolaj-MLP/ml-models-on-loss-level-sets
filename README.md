@@ -150,7 +150,7 @@ architecture imposes a common constraint. Writing the encoder as $`E`$, the
 decoder as $`D`$, and the latent dimension as $`r`$, the chain rule gives
 
 ```math
-J_f(x)=J_D(E(x))J_E(x),\qquad \operatorname{rank}J_f(x)\le r.
+J_f(x)=J_D(E(x))J_E(x),\qquad \mathrm{rank}\,J_f(x)\le r.
 ```
 
 Weights can change the response while retaining this ceiling on its local rank.

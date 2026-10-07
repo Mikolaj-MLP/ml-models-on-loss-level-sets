@@ -27,6 +27,29 @@ The second evaluates that function on the training data. A hidden-neuron permuta
 the same function. At the next level, different functions can have the same
 loss. Exploring around a trained network makes both relationships concrete.
 
+## An interactive view of the loss landscape
+
+In an additional classifier example, three independently trained spiral networks
+define a two-dimensional section of weight space. Around each SGD solution,
+sampled networks stay within a common
+1% training-loss band. Their properties form fields over the same landscape.
+
+[![Explore model properties on the measured loss landscape](figures/interactive_landscape.png)](https://mikolaj-mlp.github.io/ml-models-on-loss-level-sets/)
+
+**[Explore the landscape](https://mikolaj-mlp.github.io/ml-models-on-loss-level-sets/)**
+
+- [Input sensitivity](https://mikolaj-mlp.github.io/ml-models-on-loss-level-sets/#metric=jacobian_frobenius_rms&plane=raw&mode=absolute)
+  forms clear directional gradients within the low-loss regions.
+- [Representation rank](https://mikolaj-mlp.github.io/ml-models-on-loss-level-sets/#metric=hidden2_stable_rank&plane=raw&mode=absolute)
+  separates the three neighborhoods more strongly than it varies inside them.
+- [Confidence on errors](https://mikolaj-mlp.github.io/ml-models-on-loss-level-sets/#metric=test_error_confidence&plane=raw&mode=absolute)
+  changes smoothly as the weights move across each neighborhood.
+
+The selector contains 76 measured statistics, including class-wise errors,
+noise response, probability differences, input derivatives and matrix spectral statistics.
+Each metric retains a shared color scale across all three neighborhoods and
+both the original and neuron-aligned sections.
+
 ## From a trained point to a loss neighborhood
 
 Take the weights $`\theta_0`$ at an observed SGD plateau. Writing
